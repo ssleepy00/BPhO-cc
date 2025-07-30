@@ -14,6 +14,7 @@ for i in range(len(array)):
         colour.append('Infra Red')
         '''
 plt.plot(array,array2)
+plt.title('Refractive Index of Water over Visible Range 405-790THz')
 plt.xlabel('Frequency in Terahertz')
 plt.ylabel('Refractive Index')
 plt.show()

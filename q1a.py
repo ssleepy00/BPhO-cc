@@ -16,6 +16,7 @@ array2=[]
 for i in range(len(array)):
     array2.append(q1a(array[i]))
 plt.plot(array,array2)
+plt.title('Refractive Index of Crown Glass')
 plt.xlabel('Wavelength (m)')
 plt.xlabel()
 plt.show()
