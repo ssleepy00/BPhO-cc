@@ -10,7 +10,6 @@ array = np.array(image)
 newArray=array[:,::-1]
 newImage = Image.fromarray(newArray)
 newImage.save('sillycat.jpg')
-
 class pos:
     def __init__(self):
         self.x=5000
@@ -81,5 +80,7 @@ def on_press(event):
         position.gety() - image_h/2,
         position.gety() + image_h/2))
     fig.canvas.draw_idle()
+# Add vertical line at x=0 (center)
+vline = ax.axvline(x=0, color='red', linestyle='--', linewidth=2, alpha=0.7)
 fig.canvas.mpl_connect('key_press_event',on_press)
 plt.show()
