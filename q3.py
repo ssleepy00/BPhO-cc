@@ -9,7 +9,7 @@ def q3(x,y,n,L):
 xArray=[]
 tArray=[]
 
-for i in range(0,1000):
+for i in range(1000):
     xArray.append(i*(L/1000))
     tArray.append(q3(i*(L/1000),y,n,L))
 plt.plot(xArray,tArray)
