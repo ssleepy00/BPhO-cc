@@ -67,8 +67,6 @@ def on_press(event):
     except AttributeError:
         if event.key == keyboard.Key.esc:
                 return False
-    x = position.getx()
-    y = position.gety()
     obj1.set_extent((
         position.getx() - image_w/2,
         position.getx() + image_w/2,
@@ -81,6 +79,6 @@ def on_press(event):
         position.gety() + image_h/2))
     fig.canvas.draw_idle()
 # Add vertical line at x=0 (center)
-vline = ax.axvline(x=0, color='red', linestyle='--', linewidth=2, alpha=0.7)
+vline = ax.axvline(x=0, color='red')
 fig.canvas.mpl_connect('key_press_event',on_press)
 plt.show()

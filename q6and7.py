@@ -4,17 +4,15 @@ import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 from pynput import keyboard
 import matplotlib.figure as fig
-
 image = Image.open('cat.jpg')
 array = np.array(image)
 newArray = np.flipud(array)
 newImage = Image.fromarray(newArray)
 newImage.save('upsidecat.jpg')
 f = 3000
-
-class pos:
+class Lens:
     def __init__(self):
-        self.x=5000
+        self.x=-5000
         self.y=0
     def update(self,Dx,Dy):
             if self.x + Dx > 10000 or self.x + Dx < -10000:
@@ -35,7 +33,16 @@ class pos:
             return self.x
     def gety(self):
             return self.y
-position=pos()
+    def transformation(self):
+        u = self.x 
+        if u == f:
+            if u > 0:
+                return 10000
+            else:
+                return -10000
+        else:
+            return (u * f)/(u - f)
+position=Lens()
 fig,ax = plt.subplots(figsize=(8,6))
 ax.set_xlim(-10000,10000)
 ax.set_ylim(-10000,10000)
@@ -44,26 +51,25 @@ img1 = mpimg.imread('cat.jpg')
 img2 = mpimg.imread('upsidecat.jpg')
 image_h = img1.shape[0]
 image_w = img1.shape[1]
-array2=[]
-array3=[]
-array2.append(position.getx() - image_w/2)
-array2.append(position.getx() + image_w/2)
-array2.append(position.gety() - image_h/2)
-array2.append(position.gety() + image_h/2)
-obj1 = ax.imshow(img1,extent=(
-    array2[0],
-    array2[1],
-    array2[2],
-    array2[3])
-)
-for i in range(len(array2)):
-    array3.append((-f)/(array2[i]-f))
-obj2 = ax.imshow(img2,extent=(
-    array3[0],
-    array3[1],
-    array3[2],
-    array3[3])
-)
+obj1 = ax.imshow(image,extent=(1,1,1,1))
+obj2 = ax.imshow(newImage,extent=(1,1,1,1)) #sizes are gonna be different, so need to account for this through figuring out magnifications
+def updateImg():
+    x = position.getx()
+    y = position.gety()
+    projX = position.transformation()
+    projY = y
+    newImage_w = image_w * (projX/x)
+    newImage_h = image_h * (projX/x)  #because we dont actually use projY, we scale up the image based on the magnification found through the image and object x
+    obj1.set_extent(
+                    (x - (image_w/2),
+                    x+(image_w/2),
+                    y-(image_h/2),
+                    y+(image_h/2) ))
+    obj2.set_extent(
+         (projX - (newImage_w/2),
+          projX + (newImage_w/2),
+          projY - (newImage_h/2),
+          projY + (newImage_h/2)))
 def on_press(event):
     try:
         if event.key == "w":
@@ -77,24 +83,9 @@ def on_press(event):
     except AttributeError:
         if event.key == keyboard.Key.esc:
                 return False
-    array2=[]
-    array3=[]
-    array2.append(position.getx() - image_w/2)
-    array2.append(position.getx() + image_w/2)
-    array2.append(position.gety() - image_h/2)
-    array2.append(position.gety() + image_h/2)
-    obj1.set_extent((
-    array2[0],
-    array2[1],
-    array2[2],
-    array2[3]))
-    for i in range(len(array2)):
-        array3.append((-f)/(array2[i]-f))
-    obj2.set_extent((
-    array3[0],
-    array3[1],
-    array3[2],
-    array3[3]))
+    updateImg()
     fig.canvas.draw_idle()
+updateImg()
 fig.canvas.mpl_connect('key_press_event',on_press)
+vline = ax.axvline(x=0, color='red')
 plt.show()
