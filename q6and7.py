@@ -48,7 +48,6 @@ ax.set_xlim(-10000,10000)
 ax.set_ylim(-10000,10000)
 ax.grid(True)
 img1 = mpimg.imread('cat.jpg')
-img2 = mpimg.imread('upsidecat.jpg')
 image_h = img1.shape[0]
 image_w = img1.shape[1]
 obj1 = ax.imshow(image,extent=(1,1,1,1))
