@@ -3,6 +3,7 @@ from PIL import Image
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 from pynput import keyboard
+from matplotlib.patches import Arc
 
 image1=Image.open('cat.jpg')
 array1=np.array(image1)
@@ -111,6 +112,7 @@ ax.grid(True)
 obj1 = ax.imshow(img1,extent=(object.getx()-(objW/2),object.getx()+(objW/2),object.gety()-(objL/2),object.gety()+(objL/2)))
 obj2 = ax.imshow(newImage,extent=(newX - (outW/2),newX + (outW/2),newY - (outH/2),newY + (outH/2)),origin="lower")
 fig.canvas.mpl_connect('key_press_event',on_press)
+ax.add_patch(Arc([0,0],R*2,R*2,theta1=90,theta2=-90))
 plt.show()
 
          

@@ -18,5 +18,5 @@ for i in range(len(array)):
 plt.plot(array,array2)
 plt.title('Refractive Index of Crown Glass')
 plt.xlabel('Wavelength (m)')
-plt.xlabel()
+plt.ylabel("Refractive Index")
 plt.show()
