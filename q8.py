@@ -15,7 +15,7 @@ newX=0
 newY=0
 
 class position:
-    def __init__(self,userx,usery):
+    def __init__(self):
         self.x=3500
         self.y=2000
     def update(self,Dx,Dy):
@@ -70,7 +70,7 @@ class position:
         rangeY = maxY-minY
         outW = max(1,int(np.ceil(rangeX)))
         outH = max(1,int(np.ceil(rangeY)))
-        draw = np.zeros((int(np.ceil(outH)), int(np.ceil(outW)), 3), dtype=np.uint8)
+        draw = np.full((int(np.ceil(outH)), int(np.ceil(outW)), 3),255, dtype=np.uint8)
         for i in range(len(array2)):
             Xv = array2[i][0]
             Yv = array2[i][1]
