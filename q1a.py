@@ -10,8 +10,8 @@ def q1a(lamda):
     n2 = 1 + (B1 * lamda**2)/(lamda**2 - C1) + (B2 * lamda**2)/(lamda**2 - C2) + (B3 * lamda**2)/(lamda**2 - C3)
     return numpy.sqrt(n2)
 array = []
-for i in range(400,800,1):
-    array.append(i*1e-9)
+for i in range(4000,8000,1):
+    array.append(i*1e-10)
 array2=[]
 for i in range(len(array)):
     array2.append(q1a(array[i]))
